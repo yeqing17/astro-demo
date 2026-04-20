@@ -5,6 +5,7 @@ interface Character {
   role: string;
   description: string;
   color: string;
+  avatarBg: string;
 }
 
 const characters: Character[] = [
@@ -13,42 +14,48 @@ const characters: Character[] = [
     actor: "刘德华",
     role: "警方卧底",
     description: "黑帮安插在警方的卧底，表面是优秀的警务人员，内心却深陷身份认同的挣扎。",
-    color: "#c41e3a"
+    color: "#c41e3a",
+    avatarBg: "radial-gradient(circle at 40% 30%, #2a5a8a, #0a1a2e)"
   },
   {
     name: "陈永仁",
     actor: "梁朝伟",
     role: "黑帮卧底",
     description: "警方派入黑帮的卧底，在黑暗中坚守正义，却永远无法恢复真正的身份。",
-    color: "#d4a843"
+    color: "#d4a843",
+    avatarBg: "radial-gradient(circle at 40% 30%, #7a2a3a, #2a0a12)"
   },
   {
     name: "黄志诚",
     actor: "黄秋生",
     role: "高级督察",
     description: "陈永仁的唯一联络人，在警队与黑帮的夹缝中为正义而战，最终殉职。",
-    color: "#4a90d9"
+    color: "#4a90d9",
+    avatarBg: "radial-gradient(circle at 40% 30%, #2a4a7a, #0a1a2e)"
   },
   {
     name: "韩琛",
     actor: "曾志伟",
     role: "黑帮老大",
     description: "心思缜密的黑帮首领，手腕狠辣，将刘建明培养成为警方卧底。",
-    color: "#8b0000"
+    color: "#8b0000",
+    avatarBg: "radial-gradient(circle at 40% 30%, #4a3a1a, #1a0a00)"
   },
   {
     name: "杨锦荣",
     actor: "黎明",
     role: "保安科警司",
     description: "警队高层，行事神秘，在第三部中与刘建明展开终极对决。",
-    color: "#6b8e23"
+    color: "#6b8e23",
+    avatarBg: "radial-gradient(circle at 40% 30%, #5a5a6a, #1a1a2a)"
   },
   {
     name: "沈澄",
     actor: "陈道明",
     role: "内地商人",
     description: "神秘商人，实则另有身份，在第三部中推动了故事的高潮。",
-    color: "#9370db"
+    color: "#9370db",
+    avatarBg: "radial-gradient(circle at 40% 30%, #2a4a3a, #0a1a12)"
   }
 ];
 ---
@@ -61,15 +68,85 @@ const characters: Character[] = [
   </div>
   <div class="characters-grid">
     {characters.map((char, index) => (
-      <div class="character-card" style={`--card-color: ${char.color}`} data-index={index}>
+      <div class="character-card" style={`--card-color: ${char.color}; --avatar-bg: ${char.avatarBg}`} data-index={index}>
         <div class="card-inner">
           <div class="card-front">
-            <div class="character-initial">{char.name[0]}</div>
+            <div class="avatar-wrapper">
+              {char.name === '刘建明' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="36" rx="15" ry="17" fill="rgba(255,255,255,0.08)"/>
+                  <path d="M38 58 L50 72 L62 58" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                  <path d="M38 58 L44 80 L50 72 L56 80 L62 58" fill="rgba(255,255,255,0.04)"/>
+                  <path d="M47 72 L53 72 L55 90 L45 90 Z" fill="#c41e3a" opacity="0.75"/>
+                  <path d="M48 72 L52 72 L52 85 L48 85 Z" fill="#8b0000" opacity="0.5"/>
+                  <circle cx="58" cy="66" r="4" fill="#d4a843" opacity="0.6"/>
+                  <path d="M58 63 L60 66 L58 69 L56 66 Z" fill="#fff" opacity="0.4"/>
+                </svg>
+              )}
+              {char.name === '陈永仁' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="36" rx="14" ry="16" fill="rgba(255,255,255,0.07)"/>
+                  <path d="M32 55 L50 78 L68 55" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+                  <path d="M32 55 L36 85 L50 78 L64 85 L68 55" fill="rgba(255,255,255,0.03)"/>
+                  <path d="M34 32 Q50 26 66 32" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none"/>
+                  <rect x="30" y="30" width="7" height="12" rx="3" fill="rgba(255,255,255,0.1)"/>
+                  <rect x="63" y="30" width="7" height="12" rx="3" fill="rgba(255,255,255,0.1)"/>
+                  <line x1="50" y1="78" x2="50" y2="92" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                </svg>
+              )}
+              {char.name === '黄志诚' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="38" rx="15" ry="17" fill="rgba(255,255,255,0.07)"/>
+                  <path d="M32 28 Q50 15 68 28 L70 32 Q50 25 30 32 Z" fill="rgba(255,255,255,0.12)"/>
+                  <path d="M28 32 Q50 38 72 32" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+                  <circle cx="50" cy="26" r="4" fill="#d4a843" opacity="0.5"/>
+                  <rect x="36" y="58" width="8" height="5" fill="#d4a843" opacity="0.3"/>
+                  <rect x="56" y="58" width="8" height="5" fill="#d4a843" opacity="0.3"/>
+                  <path d="M42 58 L50 70 L58 58" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+                </svg>
+              )}
+              {char.name === '韩琛' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="38" rx="18" ry="19" fill="rgba(255,255,255,0.06)"/>
+                  <path d="M30 32 Q50 10 70 32" fill="rgba(255,255,255,0.1)"/>
+                  <ellipse cx="43" cy="40" rx="7" ry="5" fill="rgba(0,0,0,0.5)"/>
+                  <ellipse cx="57" cy="40" rx="7" ry="5" fill="rgba(0,0,0,0.5)"/>
+                  <line x1="50" y1="40" x2="50" y2="40" stroke="rgba(0,0,0,0.5)" stroke-width="2"/>
+                  <rect x="58" y="52" width="12" height="3" rx="1" fill="#d4a843" opacity="0.5" transform="rotate(15 64 53.5)"/>
+                  <circle cx="70" cy="55" r="1.5" fill="#ff6b35" opacity="0.6"/>
+                </svg>
+              )}
+              {char.name === '杨锦荣' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="36" rx="14" ry="16" fill="rgba(255,255,255,0.07)"/>
+                  <path d="M35 58 L50 75 L65 58" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+                  <path d="M35 58 L40 88 L50 75 L60 88 L65 58" fill="rgba(255,255,255,0.04)"/>
+                  <path d="M48 75 L52 75 L53 92 L47 92 Z" fill="#2a3a5a" opacity="0.6"/>
+                  <path d="M38 38 L48 38 L47 42 L39 42 Z" fill="rgba(0,0,0,0.4)"/>
+                  <path d="M52 38 L62 38 L61 42 L53 42 Z" fill="rgba(0,0,0,0.4)"/>
+                  <line x1="48" y1="40" x2="52" y2="40" stroke="rgba(0,0,0,0.4)" stroke-width="1"/>
+                </svg>
+              )}
+              {char.name === '沈澄' && (
+                <svg viewBox="0 0 100 100" class="avatar-svg">
+                  <ellipse cx="50" cy="36" rx="14" ry="16" fill="rgba(255,255,255,0.06)"/>
+                  <path d="M40 56 L50 72 L60 56" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/>
+                  <path d="M40 56 L42 85 L50 72 L58 85 L60 56" fill="rgba(255,255,255,0.04)"/>
+                  <line x1="44" y1="56" x2="44" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <line x1="56" y1="56" x2="56" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                  <line x1="42" y1="34" x2="48" y2="36" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                  <line x1="52" y1="36" x2="58" y2="34" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                </svg>
+              )}
+            </div>
             <h3 class="character-name">{char.name}</h3>
             <p class="character-actor">{char.actor} 饰</p>
             <span class="role-badge">{char.role}</span>
           </div>
           <div class="card-back">
+            <div class="back-avatar-mini">
+              <div class="mini-circle" style={`background: ${char.avatarBg}`}></div>
+            </div>
             <h3 class="back-name">{char.name}</h3>
             <p class="back-desc">{char.description}</p>
             <div class="back-actor">{char.actor} 饰 · {char.role}</div>
@@ -129,7 +206,7 @@ const characters: Character[] = [
   }
   .character-card {
     perspective: 1000px;
-    height: 280px;
+    height: 320px;
     opacity: 0;
     transform: translateY(30px) rotateX(10deg);
     transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
@@ -169,35 +246,53 @@ const characters: Character[] = [
     background: rgba(18, 18, 26, 0.9);
   }
   .card-front {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .card-back {
     transform: rotateY(180deg);
-    background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(196,30,58,0.1));
+    background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(196,30,58,0.08));
     border-color: rgba(196, 30, 58, 0.3);
+    gap: 0.6rem;
   }
-  .character-initial {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 4rem;
-    font-weight: 900;
-    color: var(--card-color);
-    opacity: 0.6;
-    line-height: 1;
-    margin-bottom: 0.5rem;
+  .avatar-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--avatar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(255,255,255,0.1);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 0.8rem;
+    transition: all 0.4s ease;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+  }
+  .character-card:hover .avatar-wrapper {
+    border-color: var(--card-color);
+    box-shadow: 0 0 40px var(--card-color);
+    transform: scale(1.05);
+  }
+  .avatar-svg {
+    width: 80%;
+    height: 80%;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
   }
   .character-name {
     font-family: 'Noto Serif SC', serif;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
+    margin-top: 0.3rem;
   }
   .character-actor {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     letter-spacing: 0.1em;
   }
   .role-badge {
-    margin-top: 0.8rem;
+    margin-top: 0.6rem;
     font-size: 0.7rem;
     color: var(--card-color);
     border: 1px solid var(--card-color);
@@ -205,18 +300,25 @@ const characters: Character[] = [
     letter-spacing: 0.1em;
     opacity: 0.7;
   }
+  .back-avatar-mini {
+    margin-bottom: 0.5rem;
+  }
+  .mini-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.1);
+  }
   .back-name {
     font-family: 'Noto Serif SC', serif;
     font-size: 1.4rem;
     font-weight: 700;
     color: #fff;
-    margin-bottom: 1rem;
   }
   .back-desc {
     font-size: 0.85rem;
     line-height: 1.8;
     color: rgba(232, 232, 232, 0.7);
-    margin-bottom: 1rem;
   }
   .back-actor {
     font-size: 0.75rem;
