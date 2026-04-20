@@ -7,14 +7,15 @@ const { title } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="无间道系列电影 - 经典港片巅峰之作" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<slot />
@@ -22,30 +23,30 @@ const { title } = Astro.props;
 </html>
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--primary-red: #c41e3a;
+		--primary-gold: #d4a843;
+		--dark-bg: #0a0a0f;
+		--dark-surface: #12121a;
+		--text-primary: #e8e8e8;
+		--text-secondary: #888;
+		--accent-gradient: linear-gradient(135deg, #c41e3a, #d4a843);
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
 	}
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
+		font-family: 'Noto Sans SC', system-ui, sans-serif;
+		background: var(--dark-bg);
+		color: var(--text-primary);
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+	body {
+		overflow-x: hidden;
+	}
+	::selection {
+		background: var(--primary-red);
+		color: #fff;
 	}
 </style>

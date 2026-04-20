@@ -1,0 +1,253 @@
+---
+interface Movie {
+  title: string;
+  subtitle: string;
+  year: string;
+  director: string;
+  rating: string;
+  summary: string;
+  tag: string;
+}
+
+const movies: Movie[] = [
+  {
+    title: "无间道",
+    subtitle: "Infernal Affairs",
+    year: "2002",
+    director: "刘伟强 / 麦兆辉",
+    rating: "9.3",
+    summary: "两个身份混乱的男人，他们分别为警方和黑社会的卧底。陈永仁混入黑帮多年，刘建明则在警队步步高升。一场身份揭露的生死博弈就此展开...",
+    tag: "正邪难辨"
+  },
+  {
+    title: "无间道II",
+    subtitle: "Infernal Affairs II",
+    year: "2003",
+    director: "刘伟强 / 麦兆辉",
+    rating: "9.2",
+    summary: "1991年，倪氏家族当时稳坐香港黑帮龙头位置，旗下有五大头目分别控制了不同的利益。黄志诚想联手警校学生陈永仁一举铲除倪家...",
+    tag: "宿命轮回"
+  },
+  {
+    title: "无间道III",
+    subtitle: "终极无间",
+    year: "2003",
+    director: "刘伟强 / 麦兆辉",
+    rating: "8.2",
+    summary: "刘建明在陈永仁死后，内心饱受煎熬，精神逐渐崩溃。他在妄想与现实中挣扎，试图证明自己的清白，却越陷越深...",
+    tag: "终极对决"
+  }
+];
+---
+
+<section class="movies-section" id="movies">
+  <div class="section-header">
+    <div class="section-line"></div>
+    <h2 class="section-title">三部曲</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="movies-grid">
+    {movies.map((movie, index) => (
+      <div class="movie-card" data-index={index}>
+        <div class="card-glow"></div>
+        <div class="card-number">0{index + 1}</div>
+        <div class="card-content">
+          <div class="card-tag">{movie.tag}</div>
+          <h3 class="card-title">{movie.title}</h3>
+          <p class="card-subtitle">{movie.subtitle}</p>
+          <div class="card-meta">
+            <span class="year">{movie.year}</span>
+            <span class="divider">·</span>
+            <span class="director">{movie.director}</span>
+          </div>
+          <div class="card-rating">
+            <span class="rating-num">{movie.rating}</span>
+            <span class="rating-label">/ 10</span>
+          </div>
+          <p class="card-summary">{movie.summary}</p>
+        </div>
+        <div class="card-border"></div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const cards = document.querySelectorAll('.movie-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  cards.forEach(card => observer.observe(card));
+</script>
+
+<style>
+  .movies-section {
+    padding: 8rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    max-width: 150px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+  }
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  .movie-card {
+    position: relative;
+    background: rgba(18, 18, 26, 0.8);
+    border: 1px solid rgba(196, 30, 58, 0.15);
+    padding: 2.5rem;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .movie-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .movie-card:nth-child(1).visible { transition-delay: 0s; }
+  .movie-card:nth-child(2).visible { transition-delay: 0.15s; }
+  .movie-card:nth-child(3).visible { transition-delay: 0.3s; }
+  .movie-card:hover {
+    border-color: rgba(196, 30, 58, 0.4);
+    transform: translateY(-5px);
+  }
+  .card-glow {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(196, 30, 58, 0.08), transparent 40%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .movie-card:hover .card-glow {
+    opacity: 1;
+  }
+  .card-number {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: rgba(196, 30, 58, 0.1);
+    line-height: 1;
+    font-family: 'Noto Serif SC', serif;
+  }
+  .card-content {
+    position: relative;
+    z-index: 2;
+  }
+  .card-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--primary-gold);
+    border: 1px solid rgba(212, 168, 67, 0.4);
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+  }
+  .card-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(135deg, #fff, #c41e3a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  .year {
+    color: var(--primary-gold);
+  }
+  .divider {
+    opacity: 0.5;
+  }
+  .card-rating {
+    margin-bottom: 1.2rem;
+  }
+  .rating-num {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-red);
+  }
+  .rating-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+  .card-summary {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: rgba(232, 232, 232, 0.7);
+  }
+  .card-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+    transform: scaleX(0);
+    transition: transform 0.6s ease-out;
+  }
+  .movie-card:hover .card-border {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.movie-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--x', x + '%');
+      card.style.setProperty('--y', y + '%');
+    });
+  });
+</script>

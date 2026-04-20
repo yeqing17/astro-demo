@@ -1,0 +1,166 @@
+---
+interface Quote {
+  text: string;
+  speaker: string;
+  context: string;
+}
+
+const quotes: Quote[] = [
+  {
+    text: "对不起，我是警察。",
+    speaker: "陈永仁",
+    context: "《无间道》"
+  },
+  {
+    text: "以前我没得选，现在我只想做个好人。",
+    speaker: "刘建明",
+    context: "《无间道》"
+  },
+  {
+    text: "出来混，迟早要还的。",
+    speaker: "倪永孝",
+    context: "《无间道II》"
+  },
+  {
+    text: "算命的说我是一将功成万骨枯，不过我不同意。",
+    speaker: "刘建明",
+    context: "《无间道》"
+  },
+  {
+    text: "我想做一个好人。",
+    speaker: "刘建明",
+    context: "《无间道III》"
+  },
+  {
+    text: "明明说好三年，三年之后又三年，三年之后又三年，就快十年了，老大！",
+    speaker: "陈永仁",
+    context: "《无间道》"
+  }
+];
+---
+
+<section class="quotes-section" id="quotes">
+  <div class="section-header">
+    <div class="section-line"></div>
+    <h2 class="section-title">经典台词</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="quotes-container">
+    {quotes.map((quote, index) => (
+      <div class="quote-card" data-index={index}>
+        <div class="quote-mark">"</div>
+        <p class="quote-text">{quote.text}</p>
+        <div class="quote-meta">
+          <span class="quote-speaker">— {quote.speaker}</span>
+          <span class="quote-context">{quote.context}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const quoteCards = document.querySelectorAll('.quote-card');
+  const quoteObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  quoteCards.forEach(card => quoteObserver.observe(card));
+</script>
+
+<style>
+  .quotes-section {
+    padding: 8rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    max-width: 150px;
+    background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+  }
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .quotes-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  .quote-card {
+    position: relative;
+    padding: 2.5rem 3rem;
+    background: rgba(18, 18, 26, 0.6);
+    border-left: 3px solid var(--primary-red);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .quote-card.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .quote-card:nth-child(1).visible { transition-delay: 0s; }
+  .quote-card:nth-child(2).visible { transition-delay: 0.1s; }
+  .quote-card:nth-child(3).visible { transition-delay: 0.2s; }
+  .quote-card:nth-child(4).visible { transition-delay: 0.3s; }
+  .quote-card:nth-child(5).visible { transition-delay: 0.4s; }
+  .quote-card:nth-child(6).visible { transition-delay: 0.5s; }
+  .quote-card:hover {
+    background: rgba(18, 18, 26, 0.9);
+    border-left-color: var(--primary-gold);
+    transform: translateX(5px);
+  }
+  .quote-mark {
+    position: absolute;
+    top: 0.5rem;
+    left: 1rem;
+    font-size: 4rem;
+    font-family: 'Noto Serif SC', serif;
+    color: var(--primary-red);
+    opacity: 0.2;
+    line-height: 1;
+  }
+  .quote-text {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    line-height: 1.8;
+    color: #fff;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .quote-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .quote-speaker {
+    font-size: 0.85rem;
+    color: var(--primary-gold);
+    font-weight: 500;
+  }
+  .quote-context {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+  }
+</style>

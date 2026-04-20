@@ -1,0 +1,260 @@
+---
+---
+<section class="hero">
+	<div class="scanlines"></div>
+	<div class="vignette"></div>
+	<div class="hero-content">
+		<div class="badge">2002 - 2003</div>
+		<h1 class="hero-title">
+			<span class="char">无</span><span class="char">间</span><span class="char">道</span>
+		</h1>
+		<div class="subtitle-wrapper">
+			<p class="subtitle typing" id="subtitle"></p>
+			<span class="cursor">|</span>
+		</div>
+		<p class="tagline">Infernal Affairs Trilogy</p>
+		<div class="hero-stats">
+			<div class="stat">
+				<span class="stat-num">3</span>
+				<span class="stat-label">部曲</span>
+			</div>
+			<div class="stat-divider"></div>
+			<div class="stat">
+				<span class="stat-num">9.3</span>
+				<span class="stat-label">豆瓣评分</span>
+			</div>
+			<div class="stat-divider"></div>
+			<div class="stat">
+				<span class="stat-num">22</span>
+				<span class="stat-label">金像奖</span>
+			</div>
+		</div>
+		<div class="scroll-indicator">
+			<div class="mouse">
+				<div class="wheel"></div>
+			</div>
+			<span>向下滚动</span>
+		</div>
+	</div>
+</section>
+
+<script>
+	const subtitle = document.getElementById('subtitle')!;
+	const text = '受身无间者永远不死，寿长乃无间地狱中之大劫';
+	let i = 0;
+	function typeWriter() {
+		if (i < text.length) {
+			subtitle.textContent += text.charAt(i);
+			i++;
+			setTimeout(typeWriter, 80 + Math.random() * 60);
+		}
+	}
+	setTimeout(typeWriter, 1000);
+</script>
+
+<style>
+	.hero {
+		position: relative;
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+	.hero::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse at 20% 50%, rgba(196, 30, 58, 0.15) 0%, transparent 50%),
+			radial-gradient(ellipse at 80% 50%, rgba(212, 168, 67, 0.08) 0%, transparent 50%),
+			linear-gradient(180deg, #0a0a0f 0%, #12121a 100%);
+		z-index: 1;
+	}
+	.scanlines {
+		position: absolute;
+		inset: 0;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 2px,
+			rgba(0, 0, 0, 0.03) 2px,
+			rgba(0, 0, 0, 0.03) 4px
+		);
+		z-index: 2;
+		pointer-events: none;
+	}
+	.vignette {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.6) 100%);
+		z-index: 3;
+		pointer-events: none;
+	}
+	.hero-content {
+		position: relative;
+		z-index: 4;
+		text-align: center;
+		padding: 2rem;
+	}
+	.badge {
+		display: inline-block;
+		border: 1px solid rgba(196, 30, 58, 0.5);
+		color: var(--primary-red);
+		padding: 0.4rem 1.2rem;
+		font-size: 0.85rem;
+		letter-spacing: 0.2em;
+		margin-bottom: 2rem;
+		position: relative;
+		overflow: hidden;
+	}
+	.badge::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(90deg, transparent, rgba(196, 30, 58, 0.2), transparent);
+		animation: shimmer 3s infinite;
+	}
+	@keyframes shimmer {
+		0% { transform: translateX(-100%); }
+		100% { transform: translateX(100%); }
+	}
+	.hero-title {
+		font-family: 'Noto Serif SC', serif;
+		font-size: clamp(4rem, 12vw, 10rem);
+		font-weight: 900;
+		letter-spacing: 0.15em;
+		margin-bottom: 1.5rem;
+		line-height: 1;
+	}
+	.hero-title .char {
+		display: inline-block;
+		background: linear-gradient(180deg, #fff 0%, #c41e3a 50%, #8b0000 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-shadow: none;
+		animation: charReveal 0.8s ease-out forwards;
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	.hero-title .char:nth-child(1) { animation-delay: 0.3s; }
+	.hero-title .char:nth-child(2) { animation-delay: 0.6s; }
+	.hero-title .char:nth-child(3) { animation-delay: 0.9s; }
+	@keyframes charReveal {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	.subtitle-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.2rem;
+		margin-bottom: 0.8rem;
+		min-height: 2em;
+	}
+	.subtitle {
+		font-family: 'Noto Serif SC', serif;
+		font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+		color: var(--primary-gold);
+		letter-spacing: 0.15em;
+	}
+	.cursor {
+		color: var(--primary-red);
+		font-weight: 300;
+		animation: blink 1s step-end infinite;
+	}
+	@keyframes blink {
+		50% { opacity: 0; }
+	}
+	.tagline {
+		font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+		letter-spacing: 0.4em;
+		text-transform: uppercase;
+		color: var(--text-secondary);
+		margin-bottom: 3rem;
+		opacity: 0;
+		animation: fadeInUp 1s ease-out 2s forwards;
+	}
+	.hero-stats {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		opacity: 0;
+		animation: fadeInUp 1s ease-out 2.5s forwards;
+	}
+	.stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.3rem;
+	}
+	.stat-num {
+		font-size: clamp(1.5rem, 3vw, 2.2rem);
+		font-weight: 700;
+		background: linear-gradient(135deg, #fff, var(--primary-gold));
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+	.stat-label {
+		font-size: 0.75rem;
+		color: var(--text-secondary);
+		letter-spacing: 0.1em;
+	}
+	.stat-divider {
+		width: 1px;
+		height: 2.5rem;
+		background: linear-gradient(180deg, transparent, var(--primary-red), transparent);
+	}
+	.scroll-indicator {
+		position: absolute;
+		bottom: 2rem;
+		left: 50%;
+		transform: translateX(-50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		color: var(--text-secondary);
+		font-size: 0.7rem;
+		letter-spacing: 0.1em;
+		opacity: 0;
+		animation: fadeInUp 1s ease-out 3s forwards;
+	}
+	.mouse {
+		width: 20px;
+		height: 32px;
+		border: 1.5px solid var(--text-secondary);
+		border-radius: 10px;
+		position: relative;
+	}
+	.wheel {
+		width: 2px;
+		height: 6px;
+		background: var(--primary-red);
+		border-radius: 1px;
+		position: absolute;
+		top: 6px;
+		left: 50%;
+		transform: translateX(-50%);
+		animation: scrollWheel 2s ease-in-out infinite;
+	}
+	@keyframes scrollWheel {
+		0%, 100% { top: 6px; opacity: 1; }
+		50% { top: 14px; opacity: 0.3; }
+	}
+	@keyframes fadeInUp {
+		from {
+			opacity: 0;
+			transform: translateY(20px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>

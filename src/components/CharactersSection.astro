@@ -1,0 +1,226 @@
+---
+interface Character {
+  name: string;
+  actor: string;
+  role: string;
+  description: string;
+  color: string;
+}
+
+const characters: Character[] = [
+  {
+    name: "刘建明",
+    actor: "刘德华",
+    role: "警方卧底",
+    description: "黑帮安插在警方的卧底，表面是优秀的警务人员，内心却深陷身份认同的挣扎。",
+    color: "#c41e3a"
+  },
+  {
+    name: "陈永仁",
+    actor: "梁朝伟",
+    role: "黑帮卧底",
+    description: "警方派入黑帮的卧底，在黑暗中坚守正义，却永远无法恢复真正的身份。",
+    color: "#d4a843"
+  },
+  {
+    name: "黄志诚",
+    actor: "黄秋生",
+    role: "高级督察",
+    description: "陈永仁的唯一联络人，在警队与黑帮的夹缝中为正义而战，最终殉职。",
+    color: "#4a90d9"
+  },
+  {
+    name: "韩琛",
+    actor: "曾志伟",
+    role: "黑帮老大",
+    description: "心思缜密的黑帮首领，手腕狠辣，将刘建明培养成为警方卧底。",
+    color: "#8b0000"
+  },
+  {
+    name: "杨锦荣",
+    actor: "黎明",
+    role: "保安科警司",
+    description: "警队高层，行事神秘，在第三部中与刘建明展开终极对决。",
+    color: "#6b8e23"
+  },
+  {
+    name: "沈澄",
+    actor: "陈道明",
+    role: "内地商人",
+    description: "神秘商人，实则另有身份，在第三部中推动了故事的高潮。",
+    color: "#9370db"
+  }
+];
+---
+
+<section class="characters-section" id="characters">
+  <div class="section-header">
+    <div class="section-line"></div>
+    <h2 class="section-title">主要角色</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="characters-grid">
+    {characters.map((char, index) => (
+      <div class="character-card" style={`--card-color: ${char.color}`} data-index={index}>
+        <div class="card-inner">
+          <div class="card-front">
+            <div class="character-initial">{char.name[0]}</div>
+            <h3 class="character-name">{char.name}</h3>
+            <p class="character-actor">{char.actor} 饰</p>
+            <span class="role-badge">{char.role}</span>
+          </div>
+          <div class="card-back">
+            <h3 class="back-name">{char.name}</h3>
+            <p class="back-desc">{char.description}</p>
+            <div class="back-actor">{char.actor} 饰 · {char.role}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  const charCards = document.querySelectorAll('.character-card');
+  const charObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  charCards.forEach(card => charObserver.observe(card));
+</script>
+
+<style>
+  .characters-section {
+    padding: 8rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    max-width: 150px;
+    background: linear-gradient(90deg, transparent, var(--primary-gold), transparent);
+  }
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .characters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .character-card {
+    perspective: 1000px;
+    height: 280px;
+    opacity: 0;
+    transform: translateY(30px) rotateX(10deg);
+    transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .character-card.visible {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+  .character-card:nth-child(1).visible { transition-delay: 0s; }
+  .character-card:nth-child(2).visible { transition-delay: 0.1s; }
+  .character-card:nth-child(3).visible { transition-delay: 0.2s; }
+  .character-card:nth-child(4).visible { transition-delay: 0.3s; }
+  .character-card:nth-child(5).visible { transition-delay: 0.4s; }
+  .character-card:nth-child(6).visible { transition-delay: 0.5s; }
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-style: preserve-3d;
+  }
+  .character-card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(18, 18, 26, 0.9);
+  }
+  .card-front {
+    gap: 0.5rem;
+  }
+  .card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, rgba(18,18,26,0.95), rgba(196,30,58,0.1));
+    border-color: rgba(196, 30, 58, 0.3);
+  }
+  .character-initial {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--card-color);
+    opacity: 0.6;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .character-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #fff;
+  }
+  .character-actor {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+  }
+  .role-badge {
+    margin-top: 0.8rem;
+    font-size: 0.7rem;
+    color: var(--card-color);
+    border: 1px solid var(--card-color);
+    padding: 0.2rem 0.8rem;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+  }
+  .back-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .back-desc {
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: rgba(232, 232, 232, 0.7);
+    margin-bottom: 1rem;
+  }
+  .back-actor {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.05em;
+  }
+</style>
